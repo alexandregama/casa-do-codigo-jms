@@ -1,4 +1,4 @@
-package br.com.casadocodigo.jms;
+package br.com.casadocodigo.jms.consumer;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
