@@ -1,4 +1,4 @@
-package br.com.casadocodigo.jms;
+package br.com.casadocodigo.jms.enviador;
 
 import java.util.Scanner;
 

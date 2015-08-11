@@ -1,15 +1,15 @@
-package br.com.casadocodigo.jms;
+package br.com.casadocodigo.jms.enviador;
 
 import java.util.Scanner;
 
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
+import javax.jms.JMSProducer;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class RegistraFinanceiroNoTopico {
+public class EnviadorParaTopico {
 
 	public static void main(String[] args) throws NamingException {
 		InitialContext ic = new InitialContext();
@@ -17,19 +17,16 @@ public class RegistraFinanceiroNoTopico {
 		Topic topic = (Topic) ic.lookup("jms/TOPIC.LIVRARIA");
 		
 		try (JMSContext context = connection.createContext("jms", "jms2")) {
-			context.setClientID("Financeiro");
-			JMSConsumer consumer = context.createDurableConsumer(topic, "AssinaturaNotas");
-			consumer.setMessageListener(new TratadorDeMensagem());
+			JMSProducer producer = context.createProducer();
 			
-			context.start();
-			
+			System.out.println("Digite para enviar para o Topico: ");
 			Scanner teclado = new Scanner(System.in);
-			System.out.println("Financeiro esperando as mensagens");
-			System.out.println("Aperte Enter para fechar a conexão");
-			teclado.nextLine();
+			while (teclado.hasNextLine()) {
+				String mensagem = teclado.nextLine();
+				
+				producer.send(topic, mensagem);
+			}
 			teclado.close();
-			
-			context.stop();
 		}
 	}
 	
