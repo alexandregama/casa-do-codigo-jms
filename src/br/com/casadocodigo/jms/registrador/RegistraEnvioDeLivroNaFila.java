@@ -9,9 +9,9 @@ import javax.jms.Queue;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import br.com.casadocodigo.jms.consumer.TratadorDeMensagem;
+import br.com.casadocodigo.jms.consumer.ConsumidorDaFila;
 
-public class RegistraNaFilaTratadorDeMensagem {
+public class RegistraEnvioDeLivroNaFila {
 
 	public static void main(String[] args) throws NamingException {
 		InitialContext ic = new InitialContext();
@@ -20,10 +20,12 @@ public class RegistraNaFilaTratadorDeMensagem {
 		
 		try (JMSContext context = connection.createContext("jms", "jms2")) {
 			JMSConsumer consumer = context.createConsumer(queue);
-			consumer.setMessageListener(new TratadorDeMensagem());
+			consumer.setMessageListener(new ConsumidorDaFila());
+			
 			context.start();
 			Scanner teclado = new Scanner(System.in);
-			System.out.println("Tratador esperando as mensagens na fila do JMS");
+			System.out.println("Consumidor esperando as mensagens na fila do JMS");
+			System.out.println("Aperte Enter para fechar a conexão");
 			
 			teclado.nextLine();
 			teclado.close();

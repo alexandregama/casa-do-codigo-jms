@@ -9,7 +9,7 @@ import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class EnviadorParaTopico {
+public class EnviadorFinanceiroParaTopico {
 
 	public static void main(String[] args) throws NamingException {
 		InitialContext ic = new InitialContext();

@@ -9,7 +9,7 @@ import javax.jms.Queue;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class EnviadorParaFila {
+public class EnviadorDeLivrosParaFila {
 
 	public static void main(String[] args) throws NamingException {
 		InitialContext ic = new InitialContext();
@@ -18,7 +18,8 @@ public class EnviadorParaFila {
 		
 		try (JMSContext context = connection.createContext("jms", "jms2")) {
 			JMSProducer producer = context.createProducer();
-			
+		
+			System.out.println("Envie um livro para a Fila:");
 			Scanner scanner = new Scanner(System.in);
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
